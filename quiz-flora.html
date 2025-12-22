@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Kuis Flora Indonesia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f5;
+            padding: 40px;
+        }
+        .quiz-box {
+            max-width: 700px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .question {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-box">
+    <h2>Kuis Flora Indonesia</h2>
+    <div id="quiz"></div>
+    <button onclick="submitQuiz()">Submit Jawaban</button>
+    <div id="result"></div>
+</div>
+
+<script>
+const questions = [
+    {
+        question: "Flora identitas Aceh adalah…",
+        options: ["Kenanga", "Jeumpa", "Tengkawang", "Edelweiss"],
+        answer: "B"
+    },
+    {
+        question: "Nama ilmiah Bunga Bangkai raksasa adalah…",
+        options: ["Rafflesia arnoldii", "Amorphophallus titanum", "Bouea macrophylla", "Coelogyne pandurata"],
+        answer: "B"
+    },
+    {
+        question: "Pinang Merah memiliki ciri khas…",
+        options: ["Daun hitam", "Batang berduri", "Pelepah merah menyala", "Bunga raksasa"],
+        answer: "C"
+    },
+    {
+        question: "Flora identitas Jawa Barat adalah…",
+        options: ["Gandaria", "Beringin", "Anggrek Bulan", "Cendana"],
+        answer: "A"
+    },
+    {
+        question: "Anggrek Hitam berasal dari…",
+        options: ["Bali", "Kalimantan", "Sumatera", "Papua"],
+        answer: "B"
+    },
+    {
+        question: "Tumbuhan yang digunakan sebagai rempah adalah…",
+        options: ["Sawo Kecik", "Kayu Manis", "Suren", "Ulin"],
+        answer: "B"
+    },
+    {
+        question: "Pohon sumber getah damar adalah…",
+        options: ["Agathis dammara", "Shorea leprosula", "Piper betle", "Dysoxylum densiflorum"],
+        answer: "A"
+    },
+    {
+        question: "Flora identitas Bali adalah…",
+        options: ["Majegau", "Kamboja", "Nangka", "Kopi"],
+        answer: "A"
+    },
+    {
+        question: "Pohon Nibung berasal dari provinsi…",
+        options: ["Riau", "Jambi", "Papua", "Aceh"],
+        answer: "A"
+    },
+    {
+        question: "Buah Naga termasuk jenis…",
+        options: ["Palma", "Kaktus", "Liana", "Epifit"],
+        answer: "B"
+    }
+];
+
+const quizDiv = document.getElementById("quiz");
+const resultDiv = document.getElementById("result");
+
+function loadQuiz() {
+    let html = "";
+    questions.forEach((q, i) => {
+        html += `<div class="question">${i+1}. ${q.question}</div>`;
+        q.options.forEach((opt, idx) => {
+            const letter = String.fromCharCode(65 + idx);
+            html += `
+                <label>
+                    <input type="radio" name="q${i}" value="${letter}">
+                    ${letter}. ${opt}
+                </label>
+            `;
+        });
+    });
+    quizDiv.innerHTML = html;
+}
+
+function submitQuiz() {
+    let score = 0;
+    questions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected && selected.value === q.answer) {
+            score++;
+        }
+    });
+    resultDiv.innerHTML = `Skor kamu: ${score} / ${questions.length}`;
+}
+
+loadQuiz();
+</script>
+
+</body>
+</html>
