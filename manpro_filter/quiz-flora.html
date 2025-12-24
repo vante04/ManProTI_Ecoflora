@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Kuis E-Learning</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 40px;
+        }
+        .quiz-container {
+            max-width: 600px;
+            background: #fff;
+            padding: 30px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .answers label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        button {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2>Kuis Pemahaman Materi</h2>
+
+    <div id="quiz"></div>
+
+    <button onclick="submitQuiz()">Submit Jawaban</button>
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    const questions = [
+        {
+            question: "Apa itu Manajemen Proyek?",
+            answers: {
+                a: "Mengelola data",
+                b: "Mengelola waktu, biaya, dan sumber daya",
+                c: "Mengelola server",
+                d: "Mengelola database"
+            },
+            correct: "b"
+        },
+        {
+            question: "Apa tujuan utama manajemen proyek?",
+            answers: {
+                a: "Menyelesaikan proyek tepat waktu",
+                b: "Menghabiskan anggaran",
+                c: "Memperpanjang proyek",
+                d: "Mengganti tim"
+            },
+            correct: "a"
+        }
+    ];
+
+    const quizContainer = document.getElementById("quiz");
+    const resultContainer = document.getElementById("result");
+
+    function loadQuiz() {
+        let output = "";
+        questions.forEach((q, index) => {
+            output += `
+                <div class="question">${index + 1}. ${q.question}</div>
+                <div class="answers">
+                    ${Object.keys(q.answers).map(letter => `
+                        <label>
+                            <input type="radio" name="question${index}" value="${letter}">
+                            ${letter}. ${q.answers[letter]}
+                        </label>
+                    `).join("")}
+                </div>
+            `;
+        });
+        quizContainer.innerHTML = output;
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question${index}"]:checked`);
+            if (selected && selected.value === q.correct) {
+                score++;
+            }
+        });
+        resultContainer.innerHTML = `Skor kamu: ${score} dari ${questions.length}`;
+    }
+
+    loadQuiz();
+</script>
+
+</body>
+</html>
