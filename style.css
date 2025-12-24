@@ -144,3 +144,16 @@ body {
     background: #c8e6c9;
     color: #2e7d32;
 }
+
+.quiz-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+.quiz-btn:hover {
+    background-color: #0056b3;
+}
